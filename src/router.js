@@ -36,6 +36,14 @@ export default new VueRouter({
         {
           path: 'scan',
           component: load('Page/QRCode/Scan')
+        },
+        {
+          path: 'articles',
+          component: load('Page/Article/Articles')
+        },
+        {
+          path: 'article/:articleParam',
+          component: load('Page/Article/ArticleDetail')
         }
       ]
     },

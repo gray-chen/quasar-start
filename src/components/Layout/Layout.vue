@@ -69,6 +69,15 @@
         class="relative-position"
         v-ripple
       />
+      <q-route-tab
+        icon="reorder"
+        to="/articles"
+        exact
+        slot="title"
+        label="Articles"
+        class="relative-position"
+        v-ripple
+      />
     </q-tabs>
 
   </q-layout>
