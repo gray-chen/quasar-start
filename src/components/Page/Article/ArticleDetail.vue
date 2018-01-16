@@ -25,6 +25,9 @@
         </q-card-main>
       </q-card>
     </div>
+    <q-fixed-position corner="bottom-right" :offset="[18, 18]">
+      <q-btn round color="primary" @click="$router.go(-1)" icon="keyboard_arrow_left" />
+    </q-fixed-position>
   </div>
 </template>
 
@@ -36,7 +39,8 @@ import {
   QCard,
   QCardTitle,
   QCardSeparator,
-  QCardMain
+  QCardMain,
+  QFixedPosition
 } from 'quasar'
 import router from '../../../router'
 export default {
@@ -52,7 +56,8 @@ export default {
     QCard,
     QCardTitle,
     QCardSeparator,
-    QCardMain
+    QCardMain,
+    QFixedPosition
   },
   mounted: function () {
     // LocalStorage.clear()
