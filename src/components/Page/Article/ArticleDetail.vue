@@ -4,18 +4,26 @@
     <!-- your content -->
     <div v-if="edit_mode">
       <q-input v-model="article.title" float-label="Title" placeholder="Title" />
+      <q-input
+        v-model="article.content"
+        type="textarea"
+        float-label="Textarea"
+        :max-height="100"
+        :min-rows="7"
+      />
+      <q-btn icon="create" class="full-width" @click="createArticle()">Create</q-btn>
     </div>
 
-    <q-input
-      v-model="article.content"
-      type="textarea"
-      float-label="Textarea"
-      :max-height="100"
-      :min-rows="7"
-    />
-    <q-btn icon="create" class="full-width" @click="createArticle()">Create</q-btn>
     <div v-if="!edit_mode">
-      222
+      <q-card>
+        <q-card-title>
+          {{article.title}}
+        </q-card-title>
+        <q-card-separator />
+        <q-card-main>
+          {{article.content}}
+        </q-card-main>
+      </q-card>
     </div>
   </div>
 </template>
@@ -24,34 +32,52 @@
 import {
   LocalStorage,
   QInput,
-  QBtn
+  QBtn,
+  QCard,
+  QCardTitle,
+  QCardSeparator,
+  QCardMain
 } from 'quasar'
+import router from '../../../router'
 export default {
   data () {
     return {
-      article: LocalStorage.has('articles') ? LocalStorage.get.item('articles').this.$route.params.articleParam ? LocalStorage.get.item('articles').this.$route.params.articleParam : {} : {},
+      article: {},
       edit_mode: false
     }
   },
   components: {
     QInput,
-    QBtn
+    QBtn,
+    QCard,
+    QCardTitle,
+    QCardSeparator,
+    QCardMain
   },
   mounted: function () {
     // LocalStorage.clear()
-    console.log(LocalStorage.get.item('articles'))
-    if (this.$route.params.articleParam === 'new') {
+    // console.log(LocalStorage.get.item('articles'), this.$route.params.articleParam)
+    let articles = LocalStorage.get.item('articles')
+    if (typeof this.$route.params.articleParam !== 'undefined' && this.$route.params.articleParam === 'new') {
       this.edit_mode = true
+    }
+    else if (typeof this.$route.params.operate !== 'undefined' && this.$route.params.operate === 'edit') {
+      this.article = articles[this.$route.params.articleParam]
+      this.edit_mode = true
+    }
+    else {
+      this.article = articles[this.$route.params.articleParam]
     }
   },
   methods: {
     createArticle: function () {
-      let count = LocalStorage.get.length('articles')
-      count++
       let articles = LocalStorage.has('articles') ? LocalStorage.get.item('articles') : {}
+      let count = Object.keys(articles).length
+      ++count
       articles[count] = this.article
       LocalStorage.set('articles', articles)
-      console.log(count)
+      this.edit_mode = false
+      router.push(`/article/${count}`)
     }
   }
 }

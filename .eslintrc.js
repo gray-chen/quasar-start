@@ -34,6 +34,7 @@ module.exports = {
     'import/export': 2,
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-    'brace-style': [2, 'stroustrup', { 'allowSingleLine': true }]
+    'brace-style': [2, 'stroustrup', { 'allowSingleLine': true }],
+    // "semi": [0, "always"],//0: 可分可不分， 1： warning 2：语句强制分号结尾
   }
 }

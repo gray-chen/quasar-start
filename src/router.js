@@ -44,6 +44,10 @@ export default new VueRouter({
         {
           path: 'article/:articleParam',
           component: load('Page/Article/ArticleDetail')
+        },
+        {
+          path: 'article/:articleParam/:operate',
+          component: load('Page/Article/ArticleDetail')
         }
       ]
     },
